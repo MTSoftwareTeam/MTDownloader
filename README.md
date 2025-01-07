@@ -1,3 +1,4 @@
 # MTDownloader
 Simple YT to MP3 program based on YT-DLP
-To compile you need YT-DLP and ffmpeg in your bat2exe converter
+Features: Download MP3 and MP4.
+It also has an updater!
