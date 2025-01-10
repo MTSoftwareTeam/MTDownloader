@@ -67,7 +67,7 @@ echo Wersja YT-DLP: 2024.12.23
 echo Wersja ffmpeg: 7.0
 echo Program na licencji MIT
 echo Program rozwyjany przez:
-echo Mihot7 (Michał) 2024-2025
+echo MTSoftware 2024-2025
 echo Kliknij coś, aby wrócić!
 pause>nul
 goto menu
