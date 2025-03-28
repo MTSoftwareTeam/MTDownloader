@@ -16,11 +16,11 @@
 ::dAsiuh18IRvcCxnZtBJQ
 ::cRYluBh/LU+EWAnk
 ::YxY4rhs+aU+IeA==
-::cxY6rQJ7JhzQF1fEqQJjZksaHErSXA==
-::ZQ05rAF9IBncCkqN+0xwdVsHAlTMbCXqZg==
-::ZQ05rAF9IAHYFVzEqQIdHD9bWwqOM2q+A6dPiA==
+::cxY6rQJ7JhzQF1fEqQJkZksaHErSXA==
+::ZQ05rAF9IBncCkqN+0xwdVsAAlTMbCXqZg==
+::ZQ05rAF9IAHYFVzEqQIdHD9bWwqOM2q+A6dIiA==
 ::eg0/rx1wNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/aSCukh9
-::fBEirQZwNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/bnJp1UYNA==
+::fBEirQZwNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/b7Jp1UYNA==
 ::cRolqwZ3JBvQF1fEqQIUKQlZQxObfHuoCbIO6eW76+XHskIfXecteYHS29Q=
 ::dhA7uBVwLU+EWHSwx002PAxVXgHi
 ::YQ03rBFzNR3SWATE1lAxI3s=
@@ -39,6 +39,16 @@ cls
 title MTDownloader %ver%
 mode 65,20
 set ver=4.0
+cls
+color 09
+if not exist %temp%\MTDOWNLOAD md %temp%\MTDOWNLOAD
+set "elems[0]=Linki możesz odzielać spacją, aby pobrać parę filmów."
+set "elems[1]=Program jest napędzany przez YT-DLP"
+set "elems[2]=Jeśli program nie działa, zaktualizuj go..."
+set "elems[3]=Program jest portable, odpalisz go z pendrive."
+set "elems[4]=Program zawsze pobiera film w najwyższej dostępnej jakości"
+set "elems[5]=Dzięki za pobranie!"
+set "elems[6]=Jak pobierzesz stone, odpal plik index.html, aby ją zobaczyć!"
 echo Sprawdzanie połączenia z serwerem...
 ping -n 1 github.com >nul 2>&1
 
@@ -61,18 +71,8 @@ if %new_ver%==%ver% (
     goto menu
 ) else (
     set update=1
-)
 
-cls
-color 09
-if not exist %temp%\MTDOWNLOAD md %temp%\MTDOWNLOAD
-set "elems[0]=Linki możesz odzielać spacją, aby pobrać parę filmów."
-set "elems[1]=Program jest napędzany przez YT-DLP"
-set "elems[2]=Jeśli program nie działa, zaktualizuj go..."
-set "elems[3]=Program jest portable, odpalisz go z pendrive."
-set "elems[4]=Program zawsze pobiera film w najwyższej dostępnej jakości"
-set "elems[5]=Dzięki za pobranie!"
-set "elems[6]=Jak pobierzesz stone, odpal plik index.html, aby ją zobaczyć!"
+)
 
 :menu
 set /a _rand=(%RANDOM% * 7 /32768) 
