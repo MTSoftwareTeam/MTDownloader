@@ -38,7 +38,7 @@
 cls
 title MTDownloader %ver%
 mode 65,20
-set ver=4.0
+set ver=4.1
 cls
 color 09
 if not exist %temp%\MTDOWNLOAD md %temp%\MTDOWNLOAD
@@ -48,7 +48,7 @@ set "elems[2]=Jeśli program nie działa, zaktualizuj go..."
 set "elems[3]=Program jest portable, odpalisz go z pendrive."
 set "elems[4]=Program zawsze pobiera film w najwyższej dostępnej jakości"
 set "elems[5]=Dzięki za pobranie!"
-set "elems[6]=Jak pobierzesz stone, odpal plik index.html, aby ją zobaczyć!"
+set "elems[6]=Jak pobierzesz strone, odpal plik index.html, aby ją zobaczyć!"
 echo Sprawdzanie połączenia z serwerem...
 ping -n 1 github.com >nul 2>&1
 
@@ -79,13 +79,13 @@ set /a _rand=(%RANDOM% * 7 /32768)
 cls
 echo Witaj, w programie MTDownloader!
 if %update%==1 echo Dostępna nowa wesja! Jeśli napotkasz problem zaktualizuj.
-echo Wersja: %ver% - 19.02.2025
+echo Wersja: %ver% - 31.03.2025
 call echo TIP: %%elems[%_rand%]%%
 echo 1. Pobierz film jako dzwięk (MP3)
 echo 2. Pobierz film w formacie MP4
 echo 3. Pobierz witryne z sieci
 echo 4. Informacje o programie
-set /p choose=[1,2,3]: 
+set /p choose=[1,2,3,4]: 
 if %choose%==1 goto mp3
 if %choose%==2 goto mp4
 if %choose%==3 goto www
@@ -150,7 +150,7 @@ pause
 :www2
 Echo Proszę podać URL witryny:
 set /p url=URL: 
-cd %temp%\MTDOWNLOAD
+cd /d %temp%\MTDOWNLOAD
 wget -m %url%
 color 09
 cls
@@ -168,7 +168,7 @@ exit
 :Info
 cls
 echo Wersja programu %ver%
-echo Wersja YT-DLP: 2025.03.27
+echo Wersja YT-DLP: 2025.03.31
 echo Wersja ffmpeg: 7.0
 echo Program na licencji MIT
 echo Program rozwijany przez:
