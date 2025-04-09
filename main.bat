@@ -1,3 +1,8 @@
+@REM MTDownloader
+@REM Version: 4.1
+@REM Date: 31.03.2025
+@REM Author: Mihot7 (MTSoftwareTeam)
+
 ::[Bat To Exe Converter]
 ::
 ::fBE1pAF6MU+EWHreyHcjLQlHcCmLNGSuUYkx3Mz0+OSLrUwZUfADfonWyrGJbuUL7yU=
