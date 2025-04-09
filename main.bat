@@ -1,7 +1,9 @@
 @REM MTDownloader
-@REM Version: 4.1
-@REM Date: 31.03.2025
+@REM Version: 4.2
+@REM Date: 10.04.2025
+@REM Description: A simple batch script to download videos from various sources using yt-dlp and wget.
 @REM Author: Mihot7 (MTSoftwareTeam)
+@REM Fork of version 4.1 edited by Klubuntu
 
 ::[Bat To Exe Converter]
 ::
@@ -38,15 +40,21 @@
 ::
 ::
 ::978f952a14a936cc963da21a135fa983
+
 @echo off
-@chcp 65001>nul
+@chcp 65001 >nul
 cls
-title MTDownloader %ver%
+title MTDownloader 4.2
 mode 65,20
-set ver=4.1
+
+set "ver=4.2"
+set "ytdlp_path=%cd%\bin\yt-dlp.exe"
+set "output_dir=%USERPROFILE%\Videos\MTDownloader"
+
 cls
 color 09
 if not exist %temp%\MTDOWNLOAD md %temp%\MTDOWNLOAD
+
 set "elems[0]=Linki możesz odzielać spacją, aby pobrać parę filmów."
 set "elems[1]=Program jest napędzany przez YT-DLP"
 set "elems[2]=Jeśli program nie działa, zaktualizuj go..."
@@ -54,106 +62,131 @@ set "elems[3]=Program jest portable, odpalisz go z pendrive."
 set "elems[4]=Program zawsze pobiera film w najwyższej dostępnej jakości"
 set "elems[5]=Dzięki za pobranie!"
 set "elems[6]=Jak pobierzesz strone, odpal plik index.html, aby ją zobaczyć!"
+
 echo Sprawdzanie połączenia z serwerem...
 ping -n 1 github.com >nul 2>&1
 
 if %errorlevel% equ 0 (
-    echo Polaczenie z serwerem jest dostępne. 
+    echo Połączenie z serwerem jest dostępne.
     goto update
 ) else (
-    echo Brak polaczenia z serwerem github.
+    echo Brak połączenia z serwerem github.
     set update=2
     pause
     goto menu
 )
 
 :update
-curl https://raw.githubusercontent.com/MTSoftwareTeam/MTDownloader/refs/heads/main/ver --silent --output ver.txt
-set /p new_ver=<"ver.txt"
-del ver.txt /q
-if %new_ver%==%ver% (
+curl https://raw.githubusercontent.com/MTSoftwareTeam/MTDownloader/refs/heads/main/ver --silent --output info\ver.txt
+set /p new_ver=<"info\ver.txt"
+del info\ver.txt /q
+if "%new_ver%"=="%ver%" (
     set update=0
     goto menu
 ) else (
     set update=1
-
 )
 
 :menu
-set /a _rand=(%RANDOM% * 7 /32768) 
+set /a _rand=(%RANDOM% * 7 /32768)
 cls
 echo Witaj, w programie MTDownloader!
-if %update%==1 echo Dostępna nowa wesja! Jeśli napotkasz problem zaktualizuj.
+if %update%==1 echo Dostępna nowa wersja! Jeśli napotkasz problem zaktualizuj.
 echo Wersja: %ver% - 31.03.2025
-call echo TIP: %%elems[%_rand%]%%
-echo 1. Pobierz film jako dzwięk (MP3)
+call echo TIP: %elems[%_rand%]%%
+echo 1. Pobierz film jako dźwięk (MP3)
 echo 2. Pobierz film w formacie MP4
-echo 3. Pobierz witryne z sieci
+echo 3. Pobierz witrynę z sieci
 echo 4. Informacje o programie
 set /p choose=[1,2,3,4]: 
-if %choose%==1 goto mp3
-if %choose%==2 goto mp4
-if %choose%==3 goto www
-if %choose%==4 goto info
+if "%choose%"=="1" goto mp3
+if "%choose%"=="2" goto mp4
+if "%choose%"=="3" goto www
+if "%choose%"=="4" goto info
 cls
-echo Opcja nie znana!!!!
+echo Opcja nieznana!!!!
 echo Naciśnij coś!
-pause>nul
+pause >nul
 cls
 goto menu
 
 :mp3
-Echo Wklej link flimu, który chcesz pobrać, a następnie kliknij ENTER!
-set /p link=Link:
+@echo off
+setlocal enabledelayedexpansion
+
+echo Wklej link filmu, ktory chcesz pobrac, a nastepnie kliknij ENTER!
+set /p link="Link: "
+set "link=!link: =!"
+
 echo Pobieranie...
-cd /d %temp%\MTDOWNLOAD
-%~dp0yt-dlp.exe -x --audio-format mp3 --no-warnings --restrict-filenames -q %link% 
+
+"%ytdlp_path%" -x --audio-format mp3 --no-warnings --restrict-filenames -q -o "%output_dir%\%%(title)s.%%(ext)s" "!link!"
+if %ERRORLEVEL% neq 0 (
+    echo Wystapil blad podczas pobierania pliku.
+    echo Command executed: "%ytdlp_path%" -x --audio-format mp3 --no-warnings --restrict-filenames -q -o "%output_dir%\%(title)s.mp3" "!link!"
+) else (
+    echo Pobieranie zakonczone pomyslnie!
+)
+
+pause
+endlocal
+
 cls
 color 09
 echo Pobieranie zakończone!
 echo Naciśnij coś, aby otworzyć folder z pobranym plikiem!
-echo PAMIĘTAJ: PRZENIEŚ GDZIEŚ PLIK!!!! ZOSTANIE ON USUNIĘTY PO ZAMKNIĘCIU PROGRAMU!!!
-pause>nul
-start explorer %temp%\MTDOWNLOAD
+pause >nul
+start explorer "%output_dir%"
 pause
-Echo Program oczyszcza system po zakończeniu pracy...
+echo Program oczyszcza system po zakończeniu pracy...
 rd %temp%\MTDOWNLOAD /s /q
 exit
 
 :mp4
-Echo Wklej link flimu, który chcesz pobrać, a następnie kliknij ENTER!
+echo Wklej link filmu, który chcesz pobrać, a następnie kliknij ENTER!
 set /p link=Link:
 echo Pobieranie...
 cd /d %temp%\MTDOWNLOAD
-%~dp0yt-dlp --merge-output-format mp4 -f "bestvideo+bestaudio[ext=m4a]/best" -q %link%
+
+if not exist "%output_dir%" (
+    mkdir "%output_dir%"
+)
+
+"%ytdlp_path%" --merge-output-format mp4 -f "bestvideo+bestaudio[ext=m4a]/best" -q -o "%output_dir%\%%(title)s.%%(ext)s" %link%
+
+if %errorlevel% neq 0 (
+    echo Wystąpił błąd podczas pobierania pliku.
+    pause
+    exit /b
+)
+
 cls
 color 09
 echo Pobieranie zakończone!
 echo Naciśnij coś, aby otworzyć folder z pobranym plikiem!
-echo PAMIĘTAJ: PRZENIEŚ GDZIEŚ PLIK!!!! ZOSTANIE ON USUNIĘTY PO ZAMKNIĘCIU PROGRAMU!!!
-pause>nul
-start explorer %temp%\MTDOWNLOAD
+pause >nul
+start explorer "%output_dir%"
 pause
-Echo Program oczyszcza system po zakończeniu pracy...
+echo Program oczyszcza system po zakończeniu pracy...
 rd %temp%\MTDOWNLOAD /s /q
 exit
-
 
 :www
 echo Sprawdzanie, czy wget jest zainstalowany...
 wget --version >nul 2>&1
 if %errorlevel% neq 0 (
     echo WGET nie jest zainstalowany.
-    echo Instalowanie
-    winget --install wget
+    echo Instalowanie...
+    winget install wget
     goto www2
 ) else (
-    echo WGET jest zainstalowany. && goto www2
+    echo WGET jest zainstalowany.
+    goto www2
 )
-pause
 
 :www2
-Echo Proszę podać URL witryny:
+echo Proszę podać URL strony, którą chcesz pobrać:
+echo Uwaga: Pobieranie może zająć trochę czasu, w zależności od rozmiaru strony.
 set /p url=URL: 
 cd /d %temp%\MTDOWNLOAD
 wget -m %url%
@@ -161,24 +194,23 @@ color 09
 cls
 echo Pobieranie zakończone!
 echo Naciśnij coś, aby otworzyć folder z pobraną stroną!
-echo PAMIĘTAJ: PRZENIEŚ GDZIEŚ FOLDER!!!! ZOSTANIE ON USUNIĘTY PO ZAMKNIĘCIU PROGRAMU!!!
-pause>nul
+pause >nul
 start explorer .
 pause
-Echo Program oczyszcza system po zakończeniu pracy...
+echo Program oczyszcza system po zakończeniu pracy...
 rd %temp%\MTDOWNLOAD /s /q
 exit
 
-
-:Info
+:info
 cls
-echo Wersja programu %ver%
+echo Wersja programu: %ver%
 echo Wersja YT-DLP: 2025.03.31
 echo Wersja ffmpeg: 7.0
 echo Program na licencji MIT
 echo Program rozwijany przez:
-echo MTSoftware (Mihot7) 2024-2025
+echo MTSoftwareTeam (Mihot7) 2024–2025
 if %update%==1 echo Nowsza wersja programu dostępna: %new_ver%
 echo Kliknij coś, aby wrócić!
-pause>nul
+pause >nul
 goto menu
+
