@@ -102,7 +102,7 @@ Echo Wklej link flimu, który chcesz pobrać, a następnie kliknij ENTER!
 set /p link=Link:
 echo Pobieranie...
 cd /d %temp%\MTDOWNLOAD
-yt-dlp.exe -x --audio-format mp3 --no-warnings --restrict-filenames -q %link% 
+"%LocalAppData%\MTDownloader\yt-dlp.exe" -x --audio-format mp3 --no-warnings --restrict-filenames -q %link% 
 cls
 color 09
 echo Pobieranie zakończone!
@@ -120,7 +120,7 @@ Echo Wklej link flimu, który chcesz pobrać, a następnie kliknij ENTER!
 set /p link=Link:
 echo Pobieranie...
 cd /d %temp%\MTDOWNLOAD
-yt-dlp.exe --merge-output-format mp4 -f "bestvideo+bestaudio[ext=m4a]/best" -q %link%
+"%LocalAppData%\MTDownloader\yt-dlp.exe" --merge-output-format mp4 -f "bestvideo+bestaudio[ext=m4a]/best" -q %link%
 cls
 color 09
 echo Pobieranie zakończone!
