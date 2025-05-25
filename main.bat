@@ -1,7 +1,7 @@
 ::[Bat To Exe Converter]
 ::
 ::YAwzoRdxOk+EWAjk
-::fBw5plQjdCyDJGyX8VAjFDZdRAuWa1eXMpET/+b34OuDp18hcO0odoPU27CLMq4a6UqE
+::fBw5plQjdCKDJH2B50kkJwtoYTCmM3y0Crod7O3p086ItUMRW+M7fZ2V07eBbukQ5SU=
 ::YAwzuBVtJxjWCl3EqQJgSA==
 ::ZR4luwNxJguZRRnk
 ::Yhs/ulQjdF+5
@@ -33,7 +33,7 @@
 ::978f952a14a936cc963da21a135fa983
 @echo off
 @chcp 65001>nul
-cd /d "%appdata%\MTDownloader"
+cd /d "%LocalAppData%\MTDownloader"
 cls
 title MTDownloader %ver%
 mode 65,20
@@ -79,7 +79,7 @@ cls
 echo Witaj, w programie MTDownloader!
 echo Jeśli coś nie działa, dawaj update!
 if %update%==1 echo Dostępna nowa wesja! Jeśli napotkasz problem zaktualizuj.
-echo Wersja: %ver% - 31.03.2025
+echo Wersja: %ver% - 25.05.2025
 call echo TIP: %%elems[%_rand%]%%
 echo 1. Pobierz film jako dzwięk (MP3)
 echo 2. Pobierz film w formacie MP4
@@ -161,7 +161,6 @@ pause
 Echo Program oczyszcza system po zakończeniu pracy...
 rd %temp%\MTDOWNLOAD /s /q
 exit
-
 
 :Info
 cls

@@ -7,14 +7,6 @@ $desktop = [Environment]::GetFolderPath("Desktop")
 remove-item -fo $Env:LOCALAPPDATA\MTDownloader -recurse
 remove-item -fo "$desktop\MTDownloader.lnk" -recurse
 remove-item -fo ("$Env:APPDATA\Microsoft\Windows\Start Menu\Programs\MTDownloader.lnk") -recurse
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
 echo Witaj w MTDownloader!
 mkdir $Env:LOCALAPPDATA\MTDownloader
 
@@ -26,7 +18,7 @@ Expand-Archive $Env:LOCALAPPDATA\MTDownloader\aria2.zip -DestinationPath $Env:LO
 Copy-Item -Path "$Env:LOCALAPPDATA\MTDownloader\aria2-1.37.0-win-32bit-build1\aria2c.exe" -Destination "$Env:LOCALAPPDATA\MTDownloader"
 
 & $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe -d $Env:LOCALAPPDATA\MTDownloader\ -o yt-dlp.exe
-& $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip -d $Env:LOCALAPPDATA\MTDownloader\ -o ffmpeg.zip
+& $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://raw.githubusercontent.com/MTSoftwareTeam/MTDownloader/c57238d7ebefb70e9cfdb1e66e74aa7e4d28d4b5/ffmpeg.exe -d $Env:LOCALAPPDATA\MTDownloader\ -o ffmpeg.exe
 & $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://github.com/MTSoftwareTeam/MTDownloader/releases/latest/download/MTDownloader.exe -d $Env:LOCALAPPDATA\MTDownloader\ -o MTDownloader.exe
 echo Pobieranie zakończone!
 #extract ffmpeg
