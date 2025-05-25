@@ -1,7 +1,5 @@
 ::[Bat To Exe Converter]
 ::
-::fBE1pAF6MU+EWHreyHcjLQlHcCmLNGSuUYkx3Mz0+OSLrUwZUfADfonWyrGJbuUL7yU=
-::fBE1pAF6MU+EWHreyHcjLQlHcCmLNGSuUYkx3Mz0+OSLrUwZUfADYZuW3riebuUL7yU=
 ::YAwzoRdxOk+EWAjk
 ::fBw5plQjdCyDJGyX8VAjFDZdRAuWa1eXMpET/+b34OuDp18hcO0odoPU27CLMq4a6UqE
 ::YAwzuBVtJxjWCl3EqQJgSA==
@@ -16,11 +14,11 @@
 ::dAsiuh18IRvcCxnZtBJQ
 ::cRYluBh/LU+EWAnk
 ::YxY4rhs+aU+IeA==
-::cxY6rQJ7JhzQF1fEqQJkZkoaHErSXA==
-::ZQ05rAF9IBncCkqN+0xwdVsAAlXMbCXqZg==
-::ZQ05rAF9IAHYFVzEqQIdHD9bWwqOM2q+A6dIiA==
+::cxY6rQJ7JhzQF1fEqQJlZksaHErSXA==
+::ZQ05rAF9IBncCkqN+0xwdVsBAlTMbCXqZg==
+::ZQ05rAF9IAHYFVzEqQIdHD9bWwqOM2q+A6dJiA==
 ::eg0/rx1wNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/aSCukh9
-::fBEirQZwNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/b7Jp1UYNA==
+::fBEirQZwNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/b/Jp1UYNA==
 ::cRolqwZ3JBvQF1fEqQIUKQlZQxObfHuoCbIO6eW76+XHskIfXecteYHS29Q=
 ::dhA7uBVwLU+EWHSwx002PAxVXgHi
 ::YQ03rBFzNR3SWATE1lAxI3s=
@@ -35,16 +33,17 @@
 ::978f952a14a936cc963da21a135fa983
 @echo off
 @chcp 65001>nul
+cd /d "%appdata%\MTDownloader"
 cls
 title MTDownloader %ver%
 mode 65,20
-set ver=4.1
+set ver=5.0
 cls
 color 09
 if not exist %temp%\MTDOWNLOAD md %temp%\MTDOWNLOAD
 set "elems[0]=Linki możesz odzielać spacją, aby pobrać parę filmów."
 set "elems[1]=Program jest napędzany przez YT-DLP"
-set "elems[2]=Jeśli program nie działa, zaktualizuj go..."
+set "elems[2]=Jeśli program nie działa, zaktualizuj go za pomocą aktualizatora!"
 set "elems[3]=Program jest portable, odpalisz go z pendrive."
 set "elems[4]=Program zawsze pobiera film w najwyższej dostępnej jakości"
 set "elems[5]=Dzięki za pobranie!"
@@ -78,6 +77,7 @@ if %new_ver%==%ver% (
 set /a _rand=(%RANDOM% * 7 /32768) 
 cls
 echo Witaj, w programie MTDownloader!
+echo Jeśli coś nie działa, dawaj update!
 if %update%==1 echo Dostępna nowa wesja! Jeśli napotkasz problem zaktualizuj.
 echo Wersja: %ver% - 31.03.2025
 call echo TIP: %%elems[%_rand%]%%
@@ -102,7 +102,7 @@ Echo Wklej link flimu, który chcesz pobrać, a następnie kliknij ENTER!
 set /p link=Link:
 echo Pobieranie...
 cd /d %temp%\MTDOWNLOAD
-%~dp0yt-dlp.exe -x --audio-format mp3 --no-warnings --restrict-filenames -q %link% 
+yt-dlp.exe -x --audio-format mp3 --no-warnings --restrict-filenames -q %link% 
 cls
 color 09
 echo Pobieranie zakończone!
@@ -120,7 +120,7 @@ Echo Wklej link flimu, który chcesz pobrać, a następnie kliknij ENTER!
 set /p link=Link:
 echo Pobieranie...
 cd /d %temp%\MTDOWNLOAD
-%~dp0yt-dlp --merge-output-format mp4 -f "bestvideo+bestaudio[ext=m4a]/best" -q %link%
+yt-dlp.exe --merge-output-format mp4 -f "bestvideo+bestaudio[ext=m4a]/best" -q %link%
 cls
 color 09
 echo Pobieranie zakończone!
@@ -138,10 +138,8 @@ exit
 echo Sprawdzanie, czy wget jest zainstalowany...
 wget --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo WGET nie jest zainstalowany.
-    echo Instalowanie
-    winget --install wget
-    goto www2
+    echo WGET nie jest zainstalowany. && pause
+    goto menu
 ) else (
     echo WGET jest zainstalowany. && goto www2
 )
@@ -168,8 +166,6 @@ exit
 :Info
 cls
 echo Wersja programu %ver%
-echo Wersja YT-DLP: 2025.03.31
-echo Wersja ffmpeg: 7.0
 echo Program na licencji MIT
 echo Program rozwijany przez:
 echo MTSoftware (Mihot7) 2024-2025
