@@ -1,7 +1,8 @@
 ::[Bat To Exe Converter]
 ::
+::fBE1pAF6MU+EWHreyHcjLQlHcCmLNGSuUYk47fvw++WXnmApcO0odoPU27CLMq0e60zqSZUi2HxTn4UODQ84
 ::YAwzoRdxOk+EWAjk
-::fBw5plQjdCKDJH2B50kkJwtoYTCmM3y0Crod7O3p086ItUMRW+M7fZ2V07eBbukQ5SU=
+::fBw5plQjdCyDJGyX8VAjFDZdRAuWa1eeA6YX/Ofr08ezhkIKWu4weYveyPmDIekd1mHrYpgh2XtendlCBRhXMBuoYW8=
 ::YAwzuBVtJxjWCl3EqQJgSA==
 ::ZR4luwNxJguZRRnk
 ::Yhs/ulQjdF+5
@@ -9,35 +10,35 @@
 ::cBs/ulQjdF+5
 ::ZR41oxFsdFKZSDk=
 ::eBoioBt6dFKZSDk=
-::cRo6pxp7LAbNWATEpSI=
+::cRo6pxp7LAbNWATEpCI=
 ::egkzugNsPRvcWATEpSI=
 ::dAsiuh18IRvcCxnZtBJQ
 ::cRYluBh/LU+EWAnk
 ::YxY4rhs+aU+IeA==
-::cxY6rQJ7JhzQF1fEqQJlZksaHErSXA==
-::ZQ05rAF9IBncCkqN+0xwdVsBAlTMbCXqZg==
-::ZQ05rAF9IAHYFVzEqQIdHD9bWwqOM2q+A6dJiA==
+::cxY6rQJ7JhzQF1fEqQJmZksaHErSXA==
+::ZQ05rAF9IBncCkqN+0xwdVsCAlTMbCXqZg==
+::ZQ05rAF9IAHYFVzEqQIdHD9bWwqOM2q+A6dKiA==
 ::eg0/rx1wNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/aSCukh9
-::fBEirQZwNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/b/Jp1UYNA==
+::fBEirQZwNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/byG7EgFUYI=
 ::cRolqwZ3JBvQF1fEqQIUKQlZQxObfHuoCbIO6eW76+XHskIfXecteYHS29Q=
 ::dhA7uBVwLU+EWHSwx002PAxVXgHi
 ::YQ03rBFzNR3SWATE1lAxI3s=
 ::dhAmsQZ3MwfNWATE2Us4Jw8DDCm2D2S8EqId+u27vbrV9y0=
-::ZQ0/vhVqMQ3MEVWAtB9wBhJRLA==
-::Zg8zqx1/OA3MEVWAtB9wBhJRLA==
+::ZQ0/vhVqMQ3MEVWAtB9wCRdERAXi
+::Zg8zqx1/OA3MEVWAtB9wHBpfLA==
 ::dhA7pRFwIByZRRmm5kM7SA==
-::Zh4grVQjdCKDJH2B50kkJwtoYTCmM3y0Crod7O3poe+fpy0=
+::Zh4grVQjdCyDJGyX8VAjFDZdRAuWa1eeA6YX/Ofr08ezhkIKWu4weYveyPmDIekd1mjQUZk62HZVmc8JHlVdZhfL
 ::YB416Ek+ZG8=
 ::
 ::
 ::978f952a14a936cc963da21a135fa983
 @echo off
 @chcp 65001>nul
-cd /d "%LocalAppData%\MTDownloader"
+cd /d "%LocalAppData%\MTDownloader
 cls
 title MTDownloader %ver%
 mode 65,20
-set ver=5.0
+set ver=6.0
 cls
 color 09
 if not exist %temp%\MTDOWNLOAD md %temp%\MTDOWNLOAD
@@ -73,13 +74,41 @@ if %new_ver%==%ver% (
 
 )
 
+if not config exist (
+    mkdir config
+    set first_run=1
+    call config.bat
+)
+echo Ładowanie ustawień...
+set /p close_after_download=<"config\close_after_download.config"
+set /p check_updates=<"config\check_updates.config"
+set /p theme=<"config\theme.config"
+if not defined close_after_download set close_after_download=0
+if not defined check_updates set update=0
+if not defined theme set theme=3
+if %theme%==light (
+    color 0F
+) else if %theme%==dark (
+    color 0A
+) else if %theme%==blue (
+    color 09
+) else if %theme%==green (
+    color 0C
+) else if %theme%==red (
+    color 0D
+) else (
+    color 09
+)
+
+
 :menu
 set /a _rand=(%RANDOM% * 7 /32768) 
 cls
 echo Witaj, w programie MTDownloader!
 echo Jeśli coś nie działa, dawaj update!
-if %update%==1 echo Dostępna nowa wesja! Jeśli napotkasz problem zaktualizuj.
-echo Wersja: %ver% - 25.05.2025
+if %update%==1 echo Dostępna nowa wesja!
+echo UWAŻAJ: Używasz programu w wersji rozwojowej, mogą wystąpić błędy!
+echo Wersja: %ver% Alpha 1 - 11.08.2025
 call echo TIP: %%elems[%_rand%]%%
 echo 1. Pobierz film jako dzwięk (MP3)
 echo 2. Pobierz film w formacie MP4
@@ -113,7 +142,11 @@ start explorer %temp%\MTDOWNLOAD
 pause
 Echo Program oczyszcza system po zakończeniu pracy...
 rd %temp%\MTDOWNLOAD /s /q
-exit
+if %close_after_download%==1 (
+    exit
+) else (
+    goto menu
+)
 
 :mp4
 Echo Wklej link flimu, który chcesz pobrać, a następnie kliknij ENTER!
@@ -131,7 +164,11 @@ start explorer %temp%\MTDOWNLOAD
 pause
 Echo Program oczyszcza system po zakończeniu pracy...
 rd %temp%\MTDOWNLOAD /s /q
-exit
+if %close_after_download%==1 (
+    exit
+) else (
+    goto menu
+)
 
 
 :www
