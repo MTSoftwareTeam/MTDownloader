@@ -1,6 +1,5 @@
 @echo off
 title MTDownloader - Ustawienia
-mode 65,20
 if "%first_run%"=="1" (
     echo Witaj w MTDownloader!
     echo Przygotowywujemy cię na uruchomienie programu.
@@ -22,6 +21,8 @@ if "%choice%"=="1" (
     echo Zamknij po pobraniu: %close_after_download%
     echo Sprawdzaj aktualizacje: %check_updates%
     echo Motyw: %theme%
+    echo Pliki cookies: %cookies%
+    echo Rozdzielczość: %resolution%
     pause
     goto menu
 ) else if "%choice%"=="3" (

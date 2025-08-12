@@ -27,7 +27,7 @@
 ::Zg8zqx1/OA3MEVWAtB9wHBpfLA==
 ::dhA7pRFwIByZRRmm5kM7SA==
 ::Zh4grVQjdCyDJGyX8VAjFDZdRAuWa1eeA6YX/Ofr08ezhkIKWu4weYveyPmDIekd1mjQUZk62HZVmc8JHlVdZhfL
-::YB416Ek+ZG8=
+::YB416Ek+Zm8=
 ::
 ::
 ::978f952a14a936cc963da21a135fa983
@@ -36,7 +36,8 @@
 cd /d "%LocalAppData%\MTDownloader
 cls
 title MTDownloader %ver%
-mode 65,20
+rem Rest in piss forever miss, Windows 11 needs to be able to run this program without this line.
+rem mode 65,20
 set ver=6.0
 cls
 color 09
@@ -110,7 +111,7 @@ if "%resolution%"=="best" (
 ) else (
     set "format=bestvideo[height<=%resolution%]+bestaudio[ext=m4a]/best[height<=%resolution%]"
 )
-
+if %check_updates==0 set update=0
 :menu
 set /a _rand=(%RANDOM% * 7 /32768) 
 cls
@@ -118,7 +119,7 @@ echo Witaj, w programie MTDownloader!
 echo Jeśli coś nie działa, dawaj update!
 if %update%==1 echo Dostępna nowa wesja!
 echo UWAŻAJ: Używasz programu w wersji rozwojowej, mogą wystąpić błędy!
-echo Wersja: %ver% Alpha 2 - 11.08.2025
+echo Wersja: %ver% Beta 1 - 12.08.2025
 call echo TIP: %%elems[%_rand%]%%
 echo 1. Pobierz film jako dzwięk (MP3)
 echo 2. Pobierz film w formacie MP4
@@ -126,7 +127,7 @@ echo 3. Pobierz witryne z sieci
 echo 4. Ustawienia
 echo 5. Aktualizator yt-dlp
 echo 6. Informacje o programie
-set /p choose=[1,2,3,4]: 
+set /p choose=[1,2,3,4,5,6]: 
 if %choose%==1 goto mp3
 if %choose%==2 goto mp4
 if %choose%==3 goto www
@@ -225,7 +226,8 @@ exit
 :update_yt_dlp
 cls
 echo Aktualizowanie yt-dlp...
-powershell -Command "Invoke-WebRequest https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe -OutFile '%LocalAppData%\MTDownloader\yt-dlp.exe'"
+del "%localappdata%\MTDownloader\yt-dlp.exe" /s /q
+"%LocalAppData%\MTDownloader\aria2c.exe" https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe -d "%LocalAppData%\MTDownloader" -o yt-dlp.exe
 if exist "%LocalAppData%\MTDownloader\yt-dlp.exe" (
     echo Aktualizacja zakończona! Uruchom ponownie program, aby zobaczyć zmiany.
 ) else (
