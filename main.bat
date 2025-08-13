@@ -1,5 +1,6 @@
 ::[Bat To Exe Converter]
 ::
+::fBE1pAF6MU+EWHreyHcjLQlHcCmLNGSuUYk47fvw++WXnmApcO0odoPU27CLMq0e60zqSZoi0XUUjNMYbA==
 ::YAwzoRdxOk+EWAjk
 ::fBw5plQjdCyDJGyX8VAjFDZdRAuWa1eeA6YX/Ofr08ezhkIKWu4weYveyPmDIekd1mHrYpgh2XtendlCBRhXMBuoYW8=
 ::YAwzuBVtJxjWCl3EqQJgSA==
@@ -23,7 +24,7 @@
 ::dhA7uBVwLU+EWHSwx002PAxVXgHi
 ::YQ03rBFzNR3SWATE1lAxI3s=
 ::dhAmsQZ3MwfNWATE2Us4Jw8DDCm2D2S8EqId+u27vbrV9y0=
-::ZQ0/vhVqMQ3MEVWAtB9wCRdERAXi
+::ZQ0/vhVqMQ3MEVWAtB9wGh5VQAWROSuZB7sY4ez6++/H8y0=
 ::Zg8zqx1/OA3MEVWAtB9wHBpfLA==
 ::dhA7pRFwIByZRRmm5kM7SA==
 ::Zh4grVQjdCyDJGyX8VAjFDZdRAuWa1eeA6YX/Ofr08ezhkIKWu4weYveyPmDIekd1mjQUZk62HZVmc8JHlVdZhfL
@@ -31,11 +32,20 @@
 ::
 ::
 ::978f952a14a936cc963da21a135fa983
+
+rem Production cycle:
+rem 1. Alpha - Development version, adds new features, may contain bugs.
+rem 2. Beta - Testing version, fixes bugs, may still add some features.
+rem 3. Release Candidate - Final testing version, no new features, only bug fixes.
+rem 4. Stable - Final version, no bugs, no new features, only security updates.
 @echo off
 @chcp 65001>nul
 cd /d "%LocalAppData%\MTDownloader
 cls
-title MTDownloader %ver%
+set build=Release Candidate 1
+rem This is the version of the program, it will be displayed in the title.
+title MTDownloader %ver% %build%
+rem This line is not needed anymore, but it was used to set the console size.
 rem Rest in piss forever miss, Windows 11 needs to be able to run this program without this line.
 rem mode 65,20
 set ver=6.0
@@ -49,6 +59,10 @@ set "elems[3]=Wersje Alpha są wersjami rozwojowymi, mogą wystąpić błędy!"
 set "elems[4]=Jeśli chcesz zgłosić błąd, napisz na mail: zixmichal@gmail.com"
 set "elems[5]=Dzięki za pobranie!"
 set "elems[6]=Jak pobierzesz strone, odpal plik index.html, aby ją zobaczyć!"
+rem Most of them aren't even true anymore, but I don't care.
+rem Those weren't updated since like 3.0 so they are outdated.
+rem I'll need to change them in the future.
+rem Maybe in later RC builds.
 echo Sprawdzanie połączenia z serwerem...
 ping -n 1 github.com >nul 2>&1
 
@@ -82,6 +96,7 @@ if not exist "config\theme.config" (
     set first_run=0
 )
 echo Ładowanie ustawień...
+for /f "delims=" %%v in ('"%LocalAppData%\MTDownloader\yt-dlp.exe" --version 2^>nul') do set ytdlp_ver=%%v
 set /p close_after_download=<"config\close_after_download.config"
 set /p check_updates=<"config\check_updates.config"
 set /p theme=<"config\theme.config"
@@ -116,10 +131,11 @@ if %check_updates==0 set update=0
 set /a _rand=(%RANDOM% * 7 /32768) 
 cls
 echo Witaj, w programie MTDownloader!
-echo Jeśli coś nie działa, dawaj update!
+rem For the sake of my sanity, WINDOWS DEFENDER FUCK OFF. This ain't malware, it's just bat2exe...
+rem Microsoft, for the love of God, FIX YOUR DAMN ANTIVIRUS!
 if %update%==1 echo Dostępna nowa wesja!
 echo UWAŻAJ: Używasz programu w wersji rozwojowej, mogą wystąpić błędy!
-echo Wersja: %ver% Beta 1 - 12.08.2025
+echo Wersja: %ver% %build% - 13.08.2025
 call echo TIP: %%elems[%_rand%]%%
 echo 1. Pobierz film jako dzwięk (MP3)
 echo 2. Pobierz film w formacie MP4
@@ -127,6 +143,7 @@ echo 3. Pobierz witryne z sieci
 echo 4. Ustawienia
 echo 5. Aktualizator yt-dlp
 echo 6. Informacje o programie
+echo 7. Skontaktuj się z nami!
 set /p choose=[1,2,3,4,5,6]: 
 if %choose%==1 goto mp3
 if %choose%==2 goto mp4
@@ -134,6 +151,7 @@ if %choose%==3 goto www
 if %choose%==4 call config.bat
 if %choose%==5 goto update_yt_dlp
 if %choose%==6 goto Info
+if %choose%==7 goto contact
 cls
 echo Opcja nie znana!!!!
 echo Naciśnij coś!
@@ -151,6 +169,11 @@ if %cookies%==0 (
 ) else (
     "%LocalAppData%\MTDownloader\yt-dlp.exe" -x --audio-format mp3 --no-warnings --restrict-filenames --cookies config\cookies.txt -q %link%
 )
+if errorlevel 1 (
+    echo Błąd podczas pobierania! Sprawdź link lub połączenie z internetem. Oraz upewnij się, że yt-dlp jest aktualny.
+    pause
+    goto menu
+)
 cls
 color 09
 echo Pobieranie zakończone!
@@ -161,6 +184,7 @@ start explorer %temp%\MTDOWNLOAD
 pause
 Echo Program oczyszcza system po zakończeniu pracy...
 rd %temp%\MTDOWNLOAD /s /q
+rem Bo z tym programem się zawsze jest. I się zawsze na niego kurwa czeka.
 if %close_after_download%==1 (
     exit
 ) else (
@@ -178,6 +202,11 @@ if %cookies%==0 (
 ) else (
     "%LocalAppData%\MTDownloader\yt-dlp.exe" --merge-output-format mp4 -f "%format%" --cookies config\cookies.txt  -q %link%
 )
+if errorlevel 1 (
+    echo Błąd podczas pobierania! Sprawdź link lub połączenie z internetem. Oraz upewnij się, że yt-dlp jest aktualny.
+    pause
+    goto menu
+)
 cls
 color 09
 echo Pobieranie zakończone!
@@ -194,7 +223,10 @@ if %close_after_download%==1 (
     goto menu
 )
 
-
+rem If you're here, you probably want to download a website.
+rem But it broke i guess?
+rem Anyway, this code wasn't touched since it was added, so it may not work in the future.
+rem also, WGET installation is not included in the installer, so you need to install it manually.
 :www
 echo Sprawdzanie, czy wget jest zainstalowany...
 wget --version >nul 2>&1
@@ -238,16 +270,42 @@ exit
 
 :Info
 cls
-rem Tak naprawdę, to wszystkie wersje przed 5.0 są nieużywalne. Bo YT-DLP był w nie zintegrowany, a teraz nadal możesz używać 5.0, nawet kiedy będzie 10.0, bo instalator sam pobiera YT-DLP.
-echo Informacje o programie:
-echo Program MTDownloader jest narzędziem do pobierania filmów z YouTube i innych stron internetowych.
-echo Program jest rozwijany przez MTSoftware (Mihot7) i jest dostępny na licencji MIT.
-echo Angielskie tłumaczenie wykonał: EksonN
-echo Wersja programu %ver%
-echo Program na licencji MIT
-echo Program rozwijany przez:
-echo MTSoftware (Mihot7) 2024-2025
-if %update%==1 echo Nowsza wersja programu dostępna: %new_ver%
-echo Kliknij coś, aby wrócić!
-pause>nul
+rem cool ass ASCII art
+type logo.txt
+echo.
+echo ============================================================
+echo Informacje o programie
+echo Wersja programu: %ver%
+echo Wersja YT-DLP: %ytdlp_ver%
+echo Wydanie: %build%
+if %update%==1 (
+    echo Nowa wersja: %new_ver%
+    echo Zaktualizuj!
+)
+echo ============================================================
+echo Stworzone przez Mihot7
+echo Rozwijane przez MTSoftware
+echo Program rozpowszechniany jest za pomocą licencji MIT
+echo Angielskie tłumaczenie wykonał EksonN
+echo Dziękujemy!
+echo ============================================================
+echo.
+pause
 goto menu
+
+:contact
+cls
+echo Skontaktuj się z nami!
+echo.
+echo Jeśli masz jakieś pytania, sugestie lub chcesz zgłosić błąd, skontaktuj się z nami:
+echo Email: zixmichal@gmail.com / dominik.santorski@ogarnij.se / superemeil@interia.pl
+echo Najszybciej odpowiadamy na wiadomości na tych adresach.
+echo Możesz też do nas napisać na Discordzie: mihot
+echo Jeśli chcesz zglosić błąd, użyj zakładki issues na githubie.
+echo Nasz mniej aktywny e-mail: MTSoftware@goracapoczta.pl
+echo Nasza strona internetowa: https://mtsoftware.online
+echo.
+echo Dziękujemy za korzystanie z naszego programu!
+pause
+goto menu
+
