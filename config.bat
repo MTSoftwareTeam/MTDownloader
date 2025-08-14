@@ -87,7 +87,7 @@ if not exist "%cookies%" (
     copy "%cookies%" config\cookies.txt >nul 2>&1
     echo Plik cookies został zapisany.
 )
-echo Podaj rozdzielczość, w której chcesz pobierać filmy
+echo Podaj rozdzielczość, w której chcesz pobierać filmy (1-8):
 echo 1. Najlepsza dostępna
 echo 2. 1440p
 echo 3. 1080p
@@ -96,7 +96,7 @@ echo 5. 480p
 echo 6. 360p
 echo 7. 240p
 echo 8. 144p
-set /p resolution=Rozdzielczość:
+set /p resolution=Rozdzielczość: 
 if "%resolution%"=="1" (
     set resolution=best
 ) else if "%resolution%"=="2" (
@@ -117,6 +117,7 @@ if "%resolution%"=="1" (
     echo Nieprawidłowy wybór, ustawiam rozdzielczość na 1080p.
     set resolution=1080
 )
+echo %resolution% > config\resolution.config
 echo Ustawienia zostały zapisane. Zostaną użyte przy następnym uruchomieniu programu.
 pause
 start MTDownloader.exe

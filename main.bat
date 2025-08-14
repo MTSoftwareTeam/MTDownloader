@@ -1,6 +1,7 @@
 ::[Bat To Exe Converter]
 ::
 ::fBE1pAF6MU+EWHreyHcjLQlHcCmLNGSuUYk47fvw++WXnmApcO0odoPU27CLMq0e60zqSZoi0XUUjNMYbA==
+::fBE1pAF6MU+EWHreyHcjLQlHcCmLNGSuUYk47fvw++WXnmApcO0odoPU27CLMq0e60zqSZoi0XUXld9CGANMHg==
 ::YAwzoRdxOk+EWAjk
 ::fBw5plQjdCyDJGyX8VAjFDZdRAuWa1eeA6YX/Ofr08ezhkIKWu4weYveyPmDIekd1mHrYpgh2XtendlCBRhXMBuoYW8=
 ::YAwzuBVtJxjWCl3EqQJgSA==
@@ -24,7 +25,7 @@
 ::dhA7uBVwLU+EWHSwx002PAxVXgHi
 ::YQ03rBFzNR3SWATE1lAxI3s=
 ::dhAmsQZ3MwfNWATE2Us4Jw8DDCm2D2S8EqId+u27vbrV9y0=
-::ZQ0/vhVqMQ3MEVWAtB9wGh5VQAWROSuZB7sY4ez6++/H8y0=
+::ZQ0/vhVqMQ3MEVWAtB9wGh5VQAWROSuZB7sY4ez6++/H8C0=
 ::Zg8zqx1/OA3MEVWAtB9wHBpfLA==
 ::dhA7pRFwIByZRRmm5kM7SA==
 ::Zh4grVQjdCyDJGyX8VAjFDZdRAuWa1eeA6YX/Ofr08ezhkIKWu4weYveyPmDIekd1mjQUZk62HZVmc8JHlVdZhfL
@@ -39,10 +40,11 @@ rem 2. Beta - Testing version, fixes bugs, may still add some features.
 rem 3. Release Candidate - Final testing version, no new features, only bug fixes.
 rem 4. Stable - Final version, no bugs, no new features, only security updates.
 @echo off
+set date-rel=14.08.2025
 @chcp 65001>nul
-cd /d "%LocalAppData%\MTDownloader
+cd /d "%LocalAppData%\MTDownloader"
 cls
-set build=Release Candidate 1
+set build=Release Candidate 2
 rem This is the version of the program, it will be displayed in the title.
 title MTDownloader %ver% %build%
 rem This line is not needed anymore, but it was used to set the console size.
@@ -54,15 +56,45 @@ color 09
 if not exist %temp%\MTDOWNLOAD md %temp%\MTDOWNLOAD
 set "elems[0]=Linki możesz odzielać spacją, aby pobrać parę filmów."
 set "elems[1]=Program jest napędzany przez YT-DLP"
-set "elems[2]=Jeśli program nie działa, zaktualizuj go za pomocą aktualizatora!"
-set "elems[3]=Wersje Alpha są wersjami rozwojowymi, mogą wystąpić błędy!"
-set "elems[4]=Jeśli chcesz zgłosić błąd, napisz na mail: zixmichal@gmail.com"
+set "elems[2]=Zachowuj aktualność YT-DLP, aby uniknąć problemów z pobieraniem filmów."
+set "elems[3]=Program pozwala na pobieranie całych kanałów na youtube"
+set "elems[4]=Pamiętaj, aby przenieść pobrane pliki gdzieś indziej, ponieważ zostaną one usunięte po zamknięciu programu lub powrocie do menu."
 set "elems[5]=Dzięki za pobranie!"
 set "elems[6]=Jak pobierzesz strone, odpal plik index.html, aby ją zobaczyć!"
-rem Most of them aren't even true anymore, but I don't care.
-rem Those weren't updated since like 3.0 so they are outdated.
-rem I'll need to change them in the future.
-rem Maybe in later RC builds.
+echo sprawdzanie pełności programu...
+REM --- Check yt-dlp.exe ---
+if not exist "%LocalAppData%\MTDownloader\yt-dlp.exe" (
+    color 0C
+    echo [BŁĄD] Nie znaleziono yt-dlp.exe w %LocalAppData%\MTDownloader!
+    echo Zainstaluj program ponownie, aby naprawić ten błąd.
+    pause
+    exit
+)
+"%LocalAppData%\MTDownloader\yt-dlp.exe" --version >nul 2>&1
+if errorlevel 1 (
+    color 0C
+    echo [BŁĄD] yt-dlp.exe nie działa poprawnie!
+    echo Spróbuj ponownie zainstalować yt-dlp.
+    pause
+    exit
+)
+
+REM --- Check aria2c.exe ---
+if not exist "%LocalAppData%\MTDownloader\aria2c.exe" (
+    color 0C
+    echo [BŁĄD] Nie znaleziono aria2c.exe w %LocalAppData%\MTDownloader!
+    echo Zainstaluj program ponownie, aby naprawić ten błąd.
+    pause
+    exit
+)
+"%LocalAppData%\MTDownloader\aria2c.exe" --version >nul 2>&1
+if errorlevel 1 (
+    color 0C
+    echo [BŁĄD] aria2c.exe nie działa poprawnie!
+    echo Spróbuj ponownie zainstalować aria2.
+    pause
+    exit
+)
 echo Sprawdzanie połączenia z serwerem...
 ping -n 1 github.com >nul 2>&1
 
@@ -96,6 +128,7 @@ if not exist "config\theme.config" (
     set first_run=0
 )
 echo Ładowanie ustawień...
+rem Bo z tym programem się zawsze jest. I się zawsze na niego kurwa czeka.
 for /f "delims=" %%v in ('"%LocalAppData%\MTDownloader\yt-dlp.exe" --version 2^>nul') do set ytdlp_ver=%%v
 set /p close_after_download=<"config\close_after_download.config"
 set /p check_updates=<"config\check_updates.config"
@@ -106,15 +139,15 @@ if not defined resolution set resolution=1080
 if not defined cookies set cookies=0
 if not defined close_after_download set close_after_download=0
 if not defined check_updates set update=0
-if not defined theme set theme=3
+if not defined theme set theme=blue
 if %theme%==light (
-    color 0F
+    color F0
 ) else if %theme%==dark (
-    color 0A
+    color 0F
 ) else if %theme%==blue (
     color 09
 ) else if %theme%==green (
-    color 0C
+    color 0a
 ) else if %theme%==red (
     color 0D
 ) else (
@@ -126,8 +159,40 @@ if "%resolution%"=="best" (
 ) else (
     set "format=bestvideo[height<=%resolution%]+bestaudio[ext=m4a]/best[height<=%resolution%]"
 )
-if %check_updates==0 set update=0
+if %check_updates%==0 set update=0
+
 :menu
+cd /d "%LocalAppData%\MTDownloader"
+cls
+type logo-mt.txt
+echo.
+echo Witaj, w programie MTDownloader!
+echo Wersja: %ver% %build%
+call echo TIP: %%elems[%_rand%]%%
+
+if %update%==1 (
+    echo Dostępna nowa wersja: %new_ver%
+) else (
+    echo Program jest aktualny.
+)
+echo 1) Pobierz film jako dzwięk   2) Pobierz film w formacie MP4
+echo 3) Pobierz witrynę z sieci    4) Ustawienia
+echo 5) Aktualizator yt-dlp        6) Informacje o programie
+echo 7) Skontaktuj się z nami!
+set /p choose=[1,2,3,4,5,6]: 
+if %choose%==1 cls && goto mp3
+if %choose%==2 cls && goto mp4
+if %choose%==3 cls && goto www
+if %choose%==4 cls && call config.bat
+if %choose%==5 cls && goto update_yt_dlp
+if %choose%==6 cls && goto Info
+if %choose%==7 cls && goto contact
+cls
+goto menu
+
+
+rem Legacy menu, expect it to be removed in the future.
+:menu_old
 set /a _rand=(%RANDOM% * 7 /32768) 
 cls
 echo Witaj, w programie MTDownloader!
@@ -162,12 +227,17 @@ goto menu
 :mp3
 Echo Wklej link flimu, który chcesz pobrać, a następnie kliknij ENTER!
 set /p link=Link:
+if "%link%"=="" (
+    echo Nie podano linku!
+    pause
+    goto menu
+)
 echo Pobieranie...
 cd /d %temp%\MTDOWNLOAD
 if %cookies%==0 (
     "%LocalAppData%\MTDownloader\yt-dlp.exe" -x --audio-format mp3 --no-warnings --restrict-filenames -q %link% 
 ) else (
-    "%LocalAppData%\MTDownloader\yt-dlp.exe" -x --audio-format mp3 --no-warnings --restrict-filenames --cookies config\cookies.txt -q %link%
+    "%LocalAppData%\MTDownloader\yt-dlp.exe" -x --audio-format mp3 --no-warnings --restrict-filenames --cookies "%LocalAppData%\MTDownloader\config\cookies.txt" -q %link%
 )
 if errorlevel 1 (
     echo Błąd podczas pobierania! Sprawdź link lub połączenie z internetem. Oraz upewnij się, że yt-dlp jest aktualny.
@@ -184,7 +254,6 @@ start explorer %temp%\MTDOWNLOAD
 pause
 Echo Program oczyszcza system po zakończeniu pracy...
 rd %temp%\MTDOWNLOAD /s /q
-rem Bo z tym programem się zawsze jest. I się zawsze na niego kurwa czeka.
 if %close_after_download%==1 (
     exit
 ) else (
@@ -194,13 +263,18 @@ if %close_after_download%==1 (
 :mp4
 Echo Wklej link flimu, który chcesz pobrać, a następnie kliknij ENTER!
 set /p link=Link:
+if "%link%"=="" (
+    echo Nie podano linku!
+    pause
+    goto menu
+)
 echo Pobieranie...
 cd /d %temp%\MTDOWNLOAD
 rem I hate myself
 if %cookies%==0 (
     "%LocalAppData%\MTDownloader\yt-dlp.exe" --merge-output-format mp4 -f "%format%" -q %link%
 ) else (
-    "%LocalAppData%\MTDownloader\yt-dlp.exe" --merge-output-format mp4 -f "%format%" --cookies config\cookies.txt  -q %link%
+    "%LocalAppData%\MTDownloader\yt-dlp.exe" --merge-output-format mp4 -f "%format%" --cookies "%LocalAppData%\MTDownloader\config\cookies.txt"  -q %link%
 )
 if errorlevel 1 (
     echo Błąd podczas pobierania! Sprawdź link lub połączenie z internetem. Oraz upewnij się, że yt-dlp jest aktualny.
@@ -241,6 +315,11 @@ pause
 :www2
 Echo Proszę podać URL witryny:
 set /p url=URL: 
+if "%url%"=="" (
+    echo Nie podano linku!
+    pause
+    goto menu
+)
 cd /d %temp%\MTDOWNLOAD
 wget -m %url%
 color 09
@@ -276,6 +355,7 @@ echo.
 echo ============================================================
 echo Informacje o programie
 echo Wersja programu: %ver%
+echo Data wydania: %date-rel%
 echo Wersja YT-DLP: %ytdlp_ver%
 echo Wydanie: %build%
 if %update%==1 (
