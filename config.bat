@@ -17,6 +17,7 @@ set /p choice=Twój wybór:
 if "%choice%"=="1" (
     goto setup
 ) else if "%choice%"=="2" (
+    cls
     echo Aktualna konfiguracja:
     echo Zamknij po pobraniu: %close_after_download%
     echo Sprawdzaj aktualizacje: %check_updates%
@@ -26,7 +27,9 @@ if "%choice%"=="1" (
     pause
     goto menu
 ) else if "%choice%"=="3" (
-    exit
+    echo Aby zastosować zmiany, uruchom ponownie program.
+    pause
+    exit /b 
 ) else (
     echo Nieprawidłowy wybór, spróbuj ponownie.
     goto menu
