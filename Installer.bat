@@ -38,6 +38,6 @@ title New MTDownloader setup 1.0
 powershell -NoProfile -ExecutionPolicy Bypass -File "MTDownloader Installer.ps1"
 cls
 echo =======================
-echo Instalacja zakończona!
+echo Installation complete!
 echo =======================
 pause
