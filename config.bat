@@ -12,7 +12,7 @@ if "%first_run%"=="1" (
 echo Wybierz opcję:
 echo 1. Zmień ustawienia
 echo 2. Wyświetl aktualną konfigurację
-echo 3. Wyjdź z programu
+echo 3. Powrót do menu głównego
 set /p choice=Twój wybór:
 if "%choice%"=="1" (
     goto setup
