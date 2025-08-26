@@ -2,15 +2,15 @@ $desktop = [Environment]::GetFolderPath("Desktop")
 remove-item -fo $Env:LOCALAPPDATA\MTDownloader -recurse
 remove-item -fo "$desktop\MTDownloader.lnk" -recurse
 remove-item -fo ("$Env:APPDATA\Microsoft\Windows\Start Menu\Programs\MTDownloader.lnk") -recurse
-echo Usuwanie opcji odinstalowania...
+echo Removing the uninstall option...
 
 $key = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MTDownloader"
 
-# Sprawdź, czy klucz istnieje
+# Checking if the key exists:
 if (Test-Path $key) {
-    # Usuń cały klucz
+    # Remove whole registry key.
     Remove-Item -Path $key -Recurse -Force
-    echo "Klucz rejestru został usunięty."
+    echo "Registry key was deleted."
 } else {
-    echo "Klucz rejestru nie istnieje."
+    echo "Registry key doesn't exist."
 }

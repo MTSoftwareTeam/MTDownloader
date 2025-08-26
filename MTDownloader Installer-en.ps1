@@ -20,8 +20,8 @@ Copy-Item -Path "$Env:LOCALAPPDATA\MTDownloader\aria2-1.37.0-win-32bit-build1\ar
 
 & $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe -d $Env:LOCALAPPDATA\MTDownloader\ -o yt-dlp.exe
 & $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://raw.githubusercontent.com/MTSoftwareTeam/MTDownloader/c57238d7ebefb70e9cfdb1e66e74aa7e4d28d4b5/ffmpeg.exe -d $Env:LOCALAPPDATA\MTDownloader\ -o ffmpeg.exe
-& $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://github.com/MTSoftwareTeam/MTDownloader/releases/latest/download/MTDownloader.exe -d $Env:LOCALAPPDATA\MTDownloader\ -o MTDownloader.exe
-& $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://github.com/MTSoftwareTeam/MTDownloader/releases/latest/download/config.bat -d $Env:LOCALAPPDATA\MTDownloader\ -o config.bat
+& $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://github.com/MTSoftwareTeam/MTDownloader/releases/latest/download/MTDownloader-en.exe -d $Env:LOCALAPPDATA\MTDownloader\ -o MTDownloader.exe
+& $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://github.com/MTSoftwareTeam/MTDownloader/releases/latest/download/config-en.bat -d $Env:LOCALAPPDATA\MTDownloader\ -o config-en.bat
 & $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://github.com/MTSoftwareTeam/MTDownloader/releases/latest/download/logo-mt.txt -d $Env:LOCALAPPDATA\MTDownloader\ -o logo-mt.txt
 & $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://github.com/MTSoftwareTeam/MTDownloader/releases/latest/download/logo.txt -d $Env:LOCALAPPDATA\MTDownloader\ -o logo.txt
 echo Downloading completed!
