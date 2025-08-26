@@ -1,9 +1,19 @@
 ::[Bat To Exe Converter]
 ::
-::fBE1pAF6MU+EWHreyHcjLQlHcCmLNGSuUYk47fvw++WXnmApcO0odoPU27CLMq0e60zqSZoi0XUUjNMYbA==
-::fBE1pAF6MU+EWHreyHcjLQlHcCmLNGSuUYk47fvw++WXnmApcO0odoPU27CLMq0e60zqSZoi0XUXld9CGANMHg==
+::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDe4DV3L2JbuIS/iU=
+::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDXIDM1LiBIeQW+AvtdplN
+::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDXIDM1LiBIeQW+Avtdplj33lV+A==
+::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDUYHIzrWCLOUBpEflYfY=
+::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDVKb4/5q9BYA=
+::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDdIDc1fqaOPRz
+::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDdIDc1fmDNK4H8lGE
+::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDdY7S1PqMIfRz
+::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDVbv/1aOALO8S7kD2Nb8jxW5blMcJHlVIbUPL
+::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDSqr6/pmrbu0Xig==
+::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDbYHS1KeaIewfpFX3JPY=
+::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDborJug==
 ::YAwzoRdxOk+EWAjk
-::fBw5plQjdCyDJGyX8VAjFDZdRAuWa1eeA6YX/Ofr08ezhkIKWu4weYveyPmDIekd1mHrYpgh2XtendlCBRhXMBuoYW8=
+::fBw5plQjdCKDJH2B50kkJwtoYTCmM3y0Crod7O3pou6CtEgRW/IyfYHPl7GAHMQc/Uvoepcp02gUkcgDQhJbcXI=
 ::YAwzuBVtJxjWCl3EqQJgSA==
 ::ZR4luwNxJguZRRnk
 ::Yhs/ulQjdF+5
@@ -20,15 +30,15 @@
 ::ZQ05rAF9IBncCkqN+0xwdVsCAlTMbCXqZg==
 ::ZQ05rAF9IAHYFVzEqQIdHD9bWwqOM2q+A6dKiA==
 ::eg0/rx1wNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/aSCukh9
-::fBEirQZwNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/byG7EgFUYI=
+::fBEirQZwNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/bzJp1UYNA==
 ::cRolqwZ3JBvQF1fEqQIUKQlZQxObfHuoCbIO6eW76+XHskIfXecteYHS29Q=
 ::dhA7uBVwLU+EWHSwx002PAxVXgHi
 ::YQ03rBFzNR3SWATE1lAxI3s=
 ::dhAmsQZ3MwfNWATE2Us4Jw8DDCm2D2S8EqId+u27vbrV9y0=
-::ZQ0/vhVqMQ3MEVWAtB9wGh5VQAWROSuZB7sY4ez6++/H8S0=
-::Zg8zqx1/OA3MEVWAtB9wHBpfLA==
+::ZQ0/vhVqMQ3MEVWAtB9wBhJRLA==
+::Zg8zqx1/OA3MEVWAtB9wBhJRLA==
 ::dhA7pRFwIByZRRmm5kM7SA==
-::Zh4grVQjdCyDJGyX8VAjFDZdRAuWa1eeA6YX/Ofr08ezhkIKWu4weYveyPmDIekd1mjQUZk62HZVmc8JHlVdZhfL
+::Zh4grVQjdCKDJH2B50kkJwtoYTCmM3y0Crod7O3poe+fpy0=
 ::YB416Ek+Zm8=
 ::
 ::
@@ -40,11 +50,11 @@ rem 2. Beta - Testing version, fixes bugs, may still add some features.
 rem 3. Release Candidate - Final testing version, no new features, only bug fixes.
 rem 4. Stable - Final version, no bugs, no new features, only security updates.
 @echo off
-set date-rel=15.08.2025
+set date-rel=22.08.2025
 @chcp 65001>nul
 cd /d "%LocalAppData%\MTDownloader"
 cls
-set build=Release Candidate 3
+set build=Stable
 rem This is the version of the program, it will be displayed in the title.
 title MTDownloader %ver% %build%
 rem This line is not needed anymore, but it was used to set the console size.
