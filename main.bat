@@ -1,19 +1,7 @@
 ::[Bat To Exe Converter]
 ::
-::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDe4DV3L2JbuIS/iU=
-::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDXIDM1LiBIeQW+AvtdplN
-::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDXIDM1LiBIeQW+Avtdplj33lV+A==
-::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDUYHIzrWCLOUBpEflYfY=
-::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDVKb4/5q9BYA=
-::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDdIDc1fqaOPRz
-::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDdIDc1fmDNK4H8lGE
-::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDdY7S1PqMIfRz
-::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDVbv/1aOALO8S7kD2Nb8jxW5blMcJHlVIbUPL
-::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDSqr6/pmrbu0Xig==
-::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDbYHS1KeaIewfpFX3JPY=
-::fBE1pAF6MU+EWHTeyGY1OxBAQxS+EV+eCaIS5Of66++V70AcXewDborJug==
 ::YAwzoRdxOk+EWAjk
-::fBw5plQjdCKDJH2B50kkJwtoYTCmM3y0Crod7O3pou6CtEgRW/IyfYHPl7GAHMQc/Uvoepcp02gUkcgDQhJbcXI=
+::fBw5plQjdCyDJGyX8VAjFDZdRAuWa1eeA6YX/Ofr08ezhnEwYMYwb4HX1bWKJfIs40bre9gk1XU6
 ::YAwzuBVtJxjWCl3EqQJgSA==
 ::ZR4luwNxJguZRRnk
 ::Yhs/ulQjdF+5
@@ -26,19 +14,19 @@
 ::dAsiuh18IRvcCxnZtBJQ
 ::cRYluBh/LU+EWAnk
 ::YxY4rhs+aU+IeA==
-::cxY6rQJ7JhzQF1fEqQJmZksaHErSXA==
-::ZQ05rAF9IBncCkqN+0xwdVsCAlTMbCXqZg==
-::ZQ05rAF9IAHYFVzEqQIdHD9bWwqOM2q+A6dKiA==
+::cxY6rQJ7JhzQF1fEqQJnZksaHErSXA==
+::ZQ05rAF9IBncCkqN+0xwdVsDAlTMbCXqZg==
+::ZQ05rAF9IAHYFVzEqQIdHD9bWwqOM2q+A6dLiA==
 ::eg0/rx1wNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/aSCukh9
-::fBEirQZwNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/bzJp1UYNA==
+::fBEirQZwNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/b3Jp1UYNA==
 ::cRolqwZ3JBvQF1fEqQIUKQlZQxObfHuoCbIO6eW76+XHskIfXecteYHS29Q=
 ::dhA7uBVwLU+EWHSwx002PAxVXgHi
 ::YQ03rBFzNR3SWATE1lAxI3s=
 ::dhAmsQZ3MwfNWATE2Us4Jw8DDCm2D2S8EqId+u27vbrV9y0=
 ::ZQ0/vhVqMQ3MEVWAtB9wBhJRLA==
-::Zg8zqx1/OA3MEVWAtB9wBhJRLA==
+::Zg8zqx1/OA3MEVWAtB9wHBpfLA==
 ::dhA7pRFwIByZRRmm5kM7SA==
-::Zh4grVQjdCKDJH2B50kkJwtoYTCmM3y0Crod7O3poe+fpy0=
+::Zh4grVQjdCyDJGyX8VAjFDZdRAuWa1eeA6YX/Ofr08ezhnEwYMYwb4HX1bWKJfJd713hFQ==
 ::YB416Ek+Zm8=
 ::
 ::
@@ -50,17 +38,17 @@ rem 2. Beta - Testing version, fixes bugs, may still add some features.
 rem 3. Release Candidate - Final testing version, no new features, only bug fixes.
 rem 4. Stable - Final version, no bugs, no new features, only security updates.
 @echo off
-set date-rel=22.08.2025
+set date-rel=28.09.2025
 @chcp 65001>nul
 cd /d "%LocalAppData%\MTDownloader"
 cls
-set build=Stable
+set build=RTM
+set ver=7.0
 rem This is the version of the program, it will be displayed in the title.
 title MTDownloader %ver% %build%
 rem This line is not needed anymore, but it was used to set the console size.
 rem Rest in piss forever miss, Windows 11 needs to be able to run this program without this line.
 rem mode 65,20
-set ver=6.0
 cls
 color 09
 if not exist %temp%\MTDOWNLOAD md %temp%\MTDOWNLOAD
@@ -161,6 +149,7 @@ set "format=bestvideo[height<=%resolution%]+bestaudio[ext=m4a]/best[height<=%res
 if %check_updates%==0 set update=0
 
 :menu
+title MTDownloader %ver% %build%
 cd /d "%LocalAppData%\MTDownloader"
 cls
 type logo-mt.txt
@@ -369,7 +358,7 @@ echo ============================================================
 echo Stworzone przez Mihot7
 echo Rozwijane przez MTSoftware
 echo Program rozpowszechniany jest za pomocą licencji MIT
-echo Angielskie tłumaczenie wykonał EksonN
+echo Specjalne podziękowania dla EksonN, mily_, szaq_.
 echo Dziękujemy!
 echo ============================================================
 echo.
