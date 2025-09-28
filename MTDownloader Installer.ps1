@@ -21,7 +21,8 @@ Copy-Item -Path "$Env:LOCALAPPDATA\MTDownloader\aria2-1.37.0-win-32bit-build1\ar
 & $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe -d $Env:LOCALAPPDATA\MTDownloader\ -o yt-dlp.exe
 & $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://raw.githubusercontent.com/MTSoftwareTeam/MTDownloader/c57238d7ebefb70e9cfdb1e66e74aa7e4d28d4b5/ffmpeg.exe -d $Env:LOCALAPPDATA\MTDownloader\ -o ffmpeg.exe
 & $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://github.com/MTSoftwareTeam/MTDownloader/releases/latest/download/MTDownloader.exe -d $Env:LOCALAPPDATA\MTDownloader\ -o MTDownloader.exe
-& $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://github.com/MTSoftwareTeam/MTDownloader/releases/latest/download/config.bat -d $Env:LOCALAPPDATA\MTDownloader\ -o config.bat
+& $Env:LOCALAPPDATA\MTDownloader\aria2c.exe https://github.com/MTSoftwareTeam/MTDownloader/releases/latest/download/extra.zip -d $Env:LOCALAPPDATA\MTDownloader\ -o extra.zip
+Expand-Archive $Env:LOCALAPPDATA\MTDownloader\extra.zip -DestinationPath $Env:LOCALAPPDATA\MTDownloader\
 echo Pobieranie zakończone!
 #extract ffmpeg
 Expand-Archive $Env:LOCALAPPDATA\MTDownloader\ffmpeg.zip -DestinationPath $Env:LOCALAPPDATA\MTDownloader\
