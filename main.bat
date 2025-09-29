@@ -1,7 +1,7 @@
 ::[Bat To Exe Converter]
 ::
 ::YAwzoRdxOk+EWAjk
-::fBw5plQjdCyDJGyX8VAjFDZdRAuWa1eeA6YX/Ofr08ezhnEwYMYwb4HX1bWKJfIs40bre9gk1XU6
+::fBw5plQjdCyDJGyX8VAjFDZdRAuWa1eeA6YX/Ofr0+OErUNTXeEwGA==
 ::YAwzuBVtJxjWCl3EqQJgSA==
 ::ZR4luwNxJguZRRnk
 ::Yhs/ulQjdF+5
@@ -14,8 +14,8 @@
 ::dAsiuh18IRvcCxnZtBJQ
 ::cRYluBh/LU+EWAnk
 ::YxY4rhs+aU+IeA==
-::cxY6rQJ7JhzQF1fEqQJnZksaHErSXA==
-::ZQ05rAF9IBncCkqN+0xwdVsDAlTMbCXqZg==
+::cxY6rQJ7JhzQF1fEqQJnZkoaHErSXA==
+::ZQ05rAF9IBncCkqN+0xwdVsDAlXMbCXqZg==
 ::ZQ05rAF9IAHYFVzEqQIdHD9bWwqOM2q+A6dLiA==
 ::eg0/rx1wNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/aSCukh9
 ::fBEirQZwNQPfEVWB+kM9LVsJDCm2GGStCLkT6ez+/b3Jp1UYNA==
@@ -26,7 +26,7 @@
 ::ZQ0/vhVqMQ3MEVWAtB9wBhJRLA==
 ::Zg8zqx1/OA3MEVWAtB9wHBpfLA==
 ::dhA7pRFwIByZRRmm5kM7SA==
-::Zh4grVQjdCyDJGyX8VAjFDZdRAuWa1eeA6YX/Ofr08ezhnEwYMYwb4HX1bWKJfJd713hFQ==
+::Zh4grVQjdCyDJGyX8VAjFDZdRAuWa1eeA6YX/Ofr08ezhkIKWu4weYveyPqLOOVz
 ::YB416Ek+Zm8=
 ::
 ::
@@ -38,19 +38,53 @@ rem 2. Beta - Testing version, fixes bugs, may still add some features.
 rem 3. Release Candidate - Final testing version, no new features, only bug fixes.
 rem 4. Stable - Final version, no bugs, no new features, only security updates.
 @echo off
+cls
 set date-rel=28.09.2025
 @chcp 65001>nul
+
 cd /d "%LocalAppData%\MTDownloader"
+if not exist "config\theme.config" (
+    mkdir config
+    set first_run=1
+    call config.bat
+) else (
+    set first_run=0
+)
+echo Ładowanie ustawień...
+rem Bo z tym programem się zawsze jest. I się zawsze na niego kurwa czeka.
+for /f "delims=" %%v in ('"%LocalAppData%\MTDownloader\yt-dlp.exe" --version 2^>nul') do set ytdlp_ver=%%v
+set /p close_after_download=<"config\close_after_download.config"
+set /p check_updates=<"config\check_updates.config"
+set /p theme=<"config\theme.config"
+set /p cookies=<"config\cookies.config"
+set /p resolution=<"config\resolution.config"
+if not defined resolution set resolution=1080
+if not defined cookies set cookies=0
+if not defined close_after_download set close_after_download=0
+if not defined check_updates set update=0
+if not defined theme set theme=blue
+if %theme%==light (
+    color F0
+) else if %theme%==dark (
+    color 0F
+) else if %theme%==blue (
+    color 09
+) else if %theme%==green (
+    color 0a
+) else if %theme%==red (
+    color 0D
+) else (
+    color 09
+)
 cls
 set build=RTM
-set ver=7.0
+set ver=7.1
 rem This is the version of the program, it will be displayed in the title.
 title MTDownloader %ver% %build%
 rem This line is not needed anymore, but it was used to set the console size.
 rem Rest in piss forever miss, Windows 11 needs to be able to run this program without this line.
 rem mode 65,20
 cls
-color 09
 if not exist %temp%\MTDOWNLOAD md %temp%\MTDOWNLOAD
 echo sprawdzanie pełności programu...
 REM --- Check yt-dlp.exe ---
@@ -111,39 +145,8 @@ if %new_ver%==%ver% (
 
 )
 
-if not exist "config\theme.config" (
-    mkdir config
-    set first_run=1
-    call config.bat
-) else (
-    set first_run=0
-)
-echo Ładowanie ustawień...
-rem Bo z tym programem się zawsze jest. I się zawsze na niego kurwa czeka.
-for /f "delims=" %%v in ('"%LocalAppData%\MTDownloader\yt-dlp.exe" --version 2^>nul') do set ytdlp_ver=%%v
-set /p close_after_download=<"config\close_after_download.config"
-set /p check_updates=<"config\check_updates.config"
-set /p theme=<"config\theme.config"
-set /p cookies=<"config\cookies.config"
-set /p resolution=<"config\resolution.config"
-if not defined resolution set resolution=1080
-if not defined cookies set cookies=0
-if not defined close_after_download set close_after_download=0
-if not defined check_updates set update=0
-if not defined theme set theme=blue
-if %theme%==light (
-    color F0
-) else if %theme%==dark (
-    color 0F
-) else if %theme%==blue (
-    color 09
-) else if %theme%==green (
-    color 0a
-) else if %theme%==red (
-    color 0D
-) else (
-    color 09
-)
+
+
 rem The power grows with every IF statement :P
 set "format=bestvideo[height<=%resolution%]+bestaudio[ext=m4a]/best[height<=%resolution%]"
 if %check_updates%==0 set update=0
@@ -166,7 +169,7 @@ echo 1) Pobierz film jako dzwięk   2) Pobierz film w formacie MP4
 echo 3) Pobierz witrynę z sieci    4) Pobierz film w najwyższej jakości
 echo 5) Aktualizuj yt-dlp          6) Informacje o programie   
 echo 7) Kontakt z twórcami         8) Ustawienia
-set /p choose=[1,2,3,4,5,6]: 
+set /p choose=[1,2,3,4,5,6,7,8]: 
 if %choose%==1 cls && goto mp3
 if %choose%==2 cls && goto mp4
 if %choose%==3 cls && goto www
@@ -200,7 +203,6 @@ if errorlevel 1 (
     goto menu
 )
 cls
-color 09
 echo Pobieranie zakończone!
 echo Naciśnij coś, aby otworzyć folder z pobranym plikiem!
 echo PAMIĘTAJ: PRZENIEŚ GDZIEŚ PLIK!!!! ZOSTANIE ON USUNIĘTY PO ZAMKNIĘCIU PROGRAMU LUB POWROTU DO MENU!!!
@@ -237,7 +239,6 @@ if errorlevel 1 (
     goto menu
 )
 cls
-color 09
 echo Pobieranie zakończone!
 echo Naciśnij coś, aby otworzyć folder z pobranym plikiem!
 echo PAMIĘTAJ: PRZENIEŚ GDZIEŚ PLIK!!!! ZOSTANIE ON USUNIĘTY PO ZAMKNIĘCIU PROGRAMU LUB POWROCIE DO MENU!!!
@@ -274,7 +275,6 @@ if errorlevel 1 (
     goto menu
 )
 cls
-color 09
 echo Pobieranie zakończone!
 echo Naciśnij coś, aby otworzyć folder z pobranym plikiem!
 echo PAMIĘTAJ: PRZENIEŚ GDZIEŚ PLIK!!!! ZOSTANIE ON USUNIĘTY PO ZAMKNIĘCIU PROGRAMU LUB POWROCIE DO MENU!!!
@@ -314,7 +314,6 @@ if "%url%"=="" (
 )
 cd /d %temp%\MTDOWNLOAD
 wget -m %url%
-color 09
 cls
 echo Pobieranie zakończone!
 echo Naciśnij coś, aby otworzyć folder z pobraną stroną!
